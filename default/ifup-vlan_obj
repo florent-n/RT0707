@@ -1,0 +1,13 @@
+#!/bin/sh
+BRIDGE=$1
+VLAN=$2
+DELAY=$3
+LOSS=$4
+ovs-vsctl --if-exists del-port $BRIDGE $LXC_NET_PEER
+
+tc qdisc add dev $LXC_NET_PEER root netem loss $LOSS delay ${DELAY}ms
+
+ovs-vsctl --may-exist add-port $BRIDGE $LXC_NET_PEER
+ovs-vsctl --if-exists remove port $LXC_NET_PEER tag $VLAN
+ovs-vsctl --if-exists set port $LXC_NET_PEER tag=$VLAN
+
