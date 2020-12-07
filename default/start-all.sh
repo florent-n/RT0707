@@ -93,7 +93,7 @@ do
                 j=$((j+1))
 
 	NAME=srv_backup
-	$CREATE_1NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET4.$j 28 5 lxc-ovs$GRP_NUM $DELAY $LOSS
+	$CREATE_1NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET4.35 28 5 lxc-ovs$GRP_NUM $DELAY $LOSS
         lxc-destroy -q -n $NAME-$GRP_NUM
         lxc-copy -n template -N $NAME-$GRP_NUM
 	lxc-start -n $NAME-$GRP_NUM -f lxc/$NAME-$GRP_NUM.conf
