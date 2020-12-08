@@ -1,5 +1,11 @@
 # How to use this script
 Test on Ubuntu 18.04 LTS and 20.04 LTS
+First task :
+```
+sudo apt-get install lxc git openvswitch-switch
+sudo service openvswitch-switch
+```
+
 You need to have a LXC install and a container with the name "template". To do that, you can :
 ```
 sudo lxc-create -t download -n template -- -d alpine -r edge -a amd64 --keyserver hkp://p80.pool.sks-keyservers.net:80
