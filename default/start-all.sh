@@ -29,11 +29,11 @@ DATA_NET4="172.19.32"
 #Number of group you wanted
 NB=$1
 
-if [ ! -e $WORKING_DIR ]; then
-	mkdir $WORKING_DIR
-else
-	rm $WORKING_DIR/*
-fi;
+#if [ ! -e $WORKING_DIR ]; then
+#	mkdir $WORKING_DIR
+#else
+#	rm $WORKING_DIR/*
+#fi;
 
 GRP_NUM=1
 #Create each conf file for each LXC
@@ -57,46 +57,58 @@ do
 		LOSS=0;;
 
 	esac
-		$CREATE_1NET lxc/$i-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET1.$j 24 2 lxc-ovs$GRP_NUM $DELAY $LOSS
-		lxc-destroy -q -n $i-$GRP_NUM
-		lxc-copy -n template -N $i-$GRP_NUM
+#		$CREATE_1NET lxc/$i-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET1.$j 24 2 lxc-ovs$GRP_NUM $DELAY $LOSS
+#		lxc-destroy -q -n $i-$GRP_NUM
+#		lxc-copy -n template -N $i-$GRP_NUM
+#		lxc-stop -n $i-$GRP_NUM
 		lxc-start -n $i-$GRP_NUM -f lxc/$i-$GRP_NUM.conf
+		echo "$i-$GRP_NUM" started
 		j=$((j+1))
 	done
 
 	NAME=passerelle
-	$CREATE_2NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET1.4 24 $DATA_NET2.1 28 2 3 lxc-ovs$GRP_NUM $DELAY $LOSS
-	lxc-destroy -q -n $NAME-$GRP_NUM
-	lxc-copy -n template -N $NAME-$GRP_NUM
+#	$CREATE_2NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET1.4 24 $DATA_NET2.1 28 2 3 lxc-ovs$GRP_NUM $DELAY $LOSS
+#	lxc-destroy -q -n $NAME-$GRP_NUM
+#	lxc-copy -n template -N $NAME-$GRP_NUM
+#	lxc-stop -n $NAME-$GRP_NUM
 	lxc-start -n $NAME-$GRP_NUM -f lxc/$NAME-$GRP_NUM.conf
+	echo "${NAME}-${GRP_NUM}" started
                 j=$((j+1))
 
 	NAME=evt
-	$CREATE_2NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET2.2 28 $DATA_NET3.17 28 3 4 lxc-ovs$GRP_NUM $DELAY $LOSS
-        lxc-destroy -q -n $NAME-$GRP_NUM
-        lxc-copy -n template -N $NAME-$GRP_NUM
+#	$CREATE_2NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET2.2 28 $DATA_NET3.17 28 3 4 lxc-ovs$GRP_NUM $DELAY $LOSS
+#        lxc-destroy -q -n $NAME-$GRP_NUM
+#        lxc-copy -n template -N $NAME-$GRP_NUM
+#	lxc-stop -n $NAME-$GRP_NUM
 	lxc-start -n $NAME-$GRP_NUM -f lxc/$NAME-$GRP_NUM.conf
+	echo "${NAME}-${GRP_NUM}" started
                 j=$((j+1))
 
 	NAME=buffer
-	$CREATE_2NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET3.19 28 $DATA_NET4.34 28 4 5 lxc-ovs$GRP_NUM $DELAY $LOSS
-        lxc-destroy -q -n $NAME-$GRP_NUM
-        lxc-copy -n template -N $NAME-$GRP_NUM
+#	$CREATE_2NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET3.19 28 $DATA_NET4.34 28 4 5 lxc-ovs$GRP_NUM $DELAY $LOSS
+#        lxc-destroy -q -n $NAME-$GRP_NUM
+#        lxc-copy -n template -N $NAME-$GRP_NUM
+#	lxc-stop -n $NAME-$GRP_NUM
 	lxc-start -n $NAME-$GRP_NUM -f lxc/$NAME-$GRP_NUM.conf
+	echo "${NAME}-${GRP_NUM}" started
                 j=$((j+1))
 
 	NAME=srv_web
-	$CREATE_2NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET3.18 28 $DATA_NET4.33 28 4 5 lxc-ovs$GRP_NUM $DELAY $LOSS
-        lxc-destroy -q -n $NAME-$GRP_NUM
-        lxc-copy -n template -N $NAME-$GRP_NUM
+#	$CREATE_2NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET3.18 28 $DATA_NET4.33 28 4 5 lxc-ovs$GRP_NUM $DELAY $LOSS
+#        lxc-destroy -q -n $NAME-$GRP_NUM
+#        lxc-copy -n template -N $NAME-$GRP_NUM
+#	lxc-stop -n $NAME-$GRP_NUM
 	lxc-start -n $NAME-$GRP_NUM -f lxc/$NAME-$GRP_NUM.conf
+	echo "${NAME}-${GRP_NUM}" started
                 j=$((j+1))
 
 	NAME=srv_backup
-	$CREATE_1NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET4.35 28 5 lxc-ovs$GRP_NUM $DELAY $LOSS
-        lxc-destroy -q -n $NAME-$GRP_NUM
-        lxc-copy -n template -N $NAME-$GRP_NUM
+#	$CREATE_1NET lxc/$NAME-$GRP_NUM.conf $ADM_NET.$(((GRP_NUM-1)*10+j)) 24 $DATA_NET4.35 28 5 lxc-ovs$GRP_NUM $DELAY $LOSS
+#        lxc-destroy -q -n $NAME-$GRP_NUM
+#        lxc-copy -n template -N $NAME-$GRP_NUM
+#	lxc-stop -n $NAME-$GRP_NUM
 	lxc-start -n $NAME-$GRP_NUM -f lxc/$NAME-$GRP_NUM.conf
+	echo "${NAME}-${GRP_NUM}" started
         j=$((j+1))
 
 	GRP_NUM=$((GRP_NUM+1))
